@@ -5,10 +5,30 @@
   --text-primary-hover: #4f4458;
   --text-secondary: #355c7d;
   --details: #f67280;
+  --details-hover: #d4626d;
   background: var(--primary);
 }
 
 .App {
   display: grid;
   place-items: center;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--details);
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--details-hover);
 }

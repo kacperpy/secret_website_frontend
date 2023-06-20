@@ -13,6 +13,7 @@ import { ItemScrollableList } from "./components/ItemScrollableList";
 import { ChangeEvent, useState } from "react";
 import tmp_img from "./data/1.jpg";
 import axios from "axios";
+import { apiKey } from "../../private/api_data";
 
 export const HomePage = () => {
   const [textFieldValue, setTextFieldValue] = useState("");
@@ -36,8 +37,7 @@ export const HomePage = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
+            Authorization: `Bearer ${apiKey}`,
           },
         }
       )

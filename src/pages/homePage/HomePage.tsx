@@ -1,9 +1,29 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import styles from "./HomePage.module.css";
 import { mockedMovies } from "./data/mockData";
 import { ItemScrollableList } from "./components/ItemScrollableList";
+import { ChangeEvent, useState } from "react";
+import tmp_img from "./data/1.jpg";
 
 export const HomePage = () => {
+  const [textFieldValue, setTextFieldValue] = useState("");
+
+  function addMovieToList(value: string) {
+    mockedMovies.push({
+      title: value,
+      description: "tmp description",
+      image: tmp_img,
+    });
+  }
+
+  const handleButtonClick = () => {
+    addMovieToList(textFieldValue);
+  };
+
+  const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTextFieldValue(event.target.value);
+  };
+
   return (
     <Box
       display="flex"
@@ -11,18 +31,18 @@ export const HomePage = () => {
       justifyContent="center"
       alignContent="center"
       alignItems="center"
-      height="100vh"
       gap="2rem"
       className={styles.homePageContainer}
     >
       <Typography
         variant="h1"
-        color="var(--text-secondary)"
-        style={{ fontWeight: "bold" }}
+        color="var(--text-primary)"
+        style={{ fontWeight: "bold", paddingTop: "4rem" }}
       >
-        DO OBEJRZENIA
+        FILMY.
       </Typography>
       <ItemScrollableList movies={mockedMovies} />
+      <Divider style={{ width: "100%" }} />
       <Box
         display="flex"
         flexDirection="column"
@@ -32,10 +52,17 @@ export const HomePage = () => {
         <TextField
           id="outlined-basic"
           placeholder="Co tym razem?"
-          variant="filled"
+          variant="outlined"
           style={{ width: "20rem" }}
+          value={textFieldValue}
+          onChange={handleTextFieldChange}
         />
-        <Button variant="contained" disableElevation style={{ width: "50%" }}>
+        <Button
+          variant="contained"
+          disableElevation
+          style={{ width: "50%" }}
+          onClick={handleButtonClick}
+        >
           Dodaj
         </Button>
       </Box>

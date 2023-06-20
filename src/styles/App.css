@@ -1,18 +1,14 @@
 :root {
-  --primary: #ffcdb2;
-  --secondary: #b5838d;
-  --text-primary: #202020;
-  --text-secondary: #e5989b;
-  --details: #ffb4a2;
+  --primary: #f8b195;
+  --secondary: #c06c84;
+  --text-primary: #6c5b7b;
+  --text-primary-hover: #4f4458;
+  --text-secondary: #355c7d;
+  --details: #f67280;
+  background: var(--primary);
 }
 
 .App {
-  background: rgb(63, 161, 251);
-  background: linear-gradient(
-    142deg,
-    rgba(255, 205, 178, 1) 0%,
-    rgba(255, 180, 162, 1) 100%
-  );
-  text-align: center;
+  display: grid;
   place-items: center;
 }

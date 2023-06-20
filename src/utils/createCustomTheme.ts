@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material";
 export const createCustomTheme = () => {
   return createTheme({
     typography: {
-      fontFamily: `"Roboto"`,
+      fontFamily: `"Ubuntu"`,
       fontWeightRegular: "regular",
       fontWeightBold: "bold",
       allVariants: {
@@ -12,7 +12,7 @@ export const createCustomTheme = () => {
     },
     palette: {
       primary: {
-        main: "#e5989b",
+        main: "#6c5b7b",
       },
     },
   });

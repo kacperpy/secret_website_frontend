@@ -1,4 +1,12 @@
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
@@ -37,9 +45,13 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           sx={{
             position: "fixed",
             left: "8rem",
-            color: "var(--text-secondary)",
+            color: "var(--text-primary)",
             fontSize: "3rem",
             cursor: "pointer",
+            transition: "color 0.1s ease",
+            "&:hover": {
+              color: "var(--text-primary-hover)",
+            },
           }}
         />
       )}
@@ -48,8 +60,8 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           key={index}
           sx={{
             width: "14rem",
-            height: "22rem",
-            backgroundColor: "var(--details)",
+            height: "21.6rem",
+            backgroundColor: "var(--primary)",
           }}
         >
           <CardMedia
@@ -57,29 +69,39 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
             height="200"
             image={item.image}
             alt="green iguana"
-            sx={{
-              border: "10px solid",
-              borderColor: "var(--details)",
-              boxSizing: "border-box",
-            }}
           />
           <CardContent>
             <Typography
               gutterBottom
               variant="h5"
               component="div"
+              color="var(--text-primary)"
               textAlign="start"
             >
               {item.title}
             </Typography>
             <Typography
               variant="body2"
-              color="text.secondary"
+              color="var(--text-primary)"
               textAlign="start"
             >
               {item.description}
             </Typography>
           </CardContent>
+          <CardActions>
+            <Button
+              variant="contained"
+              sx={{
+                width: "100%",
+                backgroundColor: "var(--details)",
+                "&:hover": {
+                  backgroundColor: "#d15c68",
+                },
+              }}
+            >
+              Obejrzane
+            </Button>
+          </CardActions>
         </Card>
       ))}
       {startIndex + MAX_CARDS < movies.length && (
@@ -88,9 +110,13 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           sx={{
             position: "fixed",
             right: "8rem",
-            color: "var(--text-secondary)",
+            color: "var(--text-primary)",
             fontSize: "3rem",
             cursor: "pointer",
+            transition: "color 0.1s ease",
+            "&:hover": {
+              color: "var(--text-primary-hover)",
+            },
           }}
         />
       )}

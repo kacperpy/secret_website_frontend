@@ -4,20 +4,12 @@ import { apiKey } from "../../../private/api_data";
 import { MovieItem } from "./types";
 
 export const useFetchMovieDetails = () => {
-  const [isLoadingRecommendation, setIsLoadingRecommendation] = useState(true);
-  const [shortDescription, setShortDescription] = useState("");
-  const [longDescription, setLongDescription] = useState("");
-  const [cast, setCast] = useState("");
-  const [movieDetails, setMovieDetails] = useState<MovieItem>({
-    title: "",
-    description: "",
-    image: "",
-  });
-  const [artworkUrl, setArtworkUrl] = useState("");
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const [movieDetails, setMovieDetails] = useState<MovieItem | null>(null);
 
   const fetchMovieDetails = (movieTitle: string) => {
-    setIsLoadingRecommendation(true);
-    console.log("\nFETCHING MOVIE DETAILS...\n");
+    setIsLoadingData(true);
+    console.log("\nFETCHING ALL MOVIE DETAILS...\n");
     axios
       .all([
         axios.post(
@@ -72,24 +64,26 @@ export const useFetchMovieDetails = () => {
         ),
       ])
       .then(
-        axios.spread((data1, data2, data3) => {
+        axios.spread((response1, response2, response3) => {
           const responseShortDescription =
-            data1.data.choices[0]?.message?.content;
+            response1.data.choices[0]?.message?.content;
           const responseLongDescription =
-            data2.data.choices[0]?.message?.content;
-          const responseArtworkUrl = data3.data[0]?.url;
+            response2.data.choices[0]?.message?.content;
+          const responseArtworkUrl = response3.data.data[0]?.url;
 
-          setShortDescription(responseShortDescription);
-          setLongDescription(responseLongDescription);
-          setArtworkUrl(responseArtworkUrl);
           setMovieDetails({
             title: movieTitle,
             description: responseShortDescription,
             image: responseArtworkUrl,
           });
         })
-      );
+      )
+      .catch((error: any) => {
+        console.error("Error fetching details: ", error);
+      })
+      .finally(() => {
+        setIsLoadingData(false);
+      });
   };
-
-  return { movieDetails, fetchMovieDetails };
+  return { isLoadingData, movieDetails, fetchMovieDetails };
 };

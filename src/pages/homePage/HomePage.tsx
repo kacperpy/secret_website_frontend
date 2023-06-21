@@ -12,50 +12,26 @@ import styles from "./HomePage.module.css";
 import { mockedMovies } from "./data/mockData";
 import { ItemScrollableList } from "./components/ItemScrollableList";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useFetchMovieArtwork } from "../../components/api/openAi/useFetchMovieArtwork";
-import { useFetchMovieDescription } from "../../components/api/openAi/useFetchMovieDescription";
+import { useFetchMovieDetails } from "../../components/api/openAi/useFetchMovieDetails";
 
 export const HomePage = () => {
   const [textFieldValue, setTextFieldValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const [isLoadingData, setIsLoadingData] = useState(false);
-  const { isLoadingDescription, description, fetchMovieDescription } =
-    useFetchMovieDescription();
-  const { isLoadingArtwork, url, fetchMovieArtwork } = useFetchMovieArtwork();
-
-  const handleAddButtonClick = () => {
-    setIsLoadingData(true);
-    fetchMovieDescription(textFieldValue);
-  };
+  const { isLoadingData, movieDetails, fetchMovieDetails } =
+    useFetchMovieDetails();
 
   const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTextFieldValue(event.target.value);
   };
 
   useEffect(() => {
-    if (!isLoadingDescription) {
-      fetchMovieArtwork(textFieldValue);
+    if (!isLoadingData && movieDetails != null) {
+      mockedMovies.push(movieDetails);
+      setShowAlert(true);
+      setTextFieldValue("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoadingDescription]);
-
-  useEffect(() => {
-    if (!isLoadingArtwork) {
-      addMovieToList(textFieldValue, description, url);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoadingArtwork]);
-
-  function addMovieToList(value: string, description: string, url: string) {
-    mockedMovies.push({
-      title: value,
-      description: description,
-      image: url,
-    });
-    setTextFieldValue("");
-    setIsLoadingData(false);
-    setShowAlert(true);
-  }
+  }, [isLoadingData]);
 
   return (
     <Box
@@ -98,7 +74,9 @@ export const HomePage = () => {
             variant="contained"
             disableElevation
             style={{ width: "50%" }}
-            onClick={handleAddButtonClick}
+            onClick={() => {
+              fetchMovieDetails(textFieldValue);
+            }}
           >
             ADD
           </Button>

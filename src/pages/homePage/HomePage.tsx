@@ -2,6 +2,7 @@ import {
   Alert,
   Box,
   Button,
+  CircularProgress,
   Divider,
   Snackbar,
   TextField,
@@ -10,63 +11,50 @@ import {
 import styles from "./HomePage.module.css";
 import { mockedMovies } from "./data/mockData";
 import { ItemScrollableList } from "./components/ItemScrollableList";
-import { ChangeEvent, useState } from "react";
-import tmp_img from "./data/1.jpg";
-import axios from "axios";
-import { apiKey } from "../../private/api_data";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useFetchMovieArtwork } from "../../components/api/openAi/useFetchMovieArtwork";
+import { useFetchMovieDescription } from "../../components/api/openAi/useFetchMovieDescription";
 
 export const HomePage = () => {
   const [textFieldValue, setTextFieldValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
-  const [response, setResponse] = useState("");
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const { isLoadingDescription, description, fetchMovieDescription } =
+    useFetchMovieDescription();
+  const { isLoadingArtwork, url, fetchMovieArtwork } = useFetchMovieArtwork();
 
-  const fetchData = async () => {
-    axios
-      .post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "user",
-              content: `tell me a max 20 word description of the movie: ${textFieldValue}`,
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      )
-      .then((response: { data: any }) => {
-        console.log("IsLoading: " + isLoading);
-        const description = response.data.choices[0]?.message?.content;
-        setResponse(response.data.choices[0]?.message?.content);
-        addMovieToList(textFieldValue, description);
-      })
-      .catch((error: any) => {
-        console.error("Error fetching images:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-        setShowAlert(true);
-      });
+  const handleAddButtonClick = () => {
+    setIsLoadingData(true);
+    fetchMovieDescription(textFieldValue);
   };
-
-  function addMovieToList(value: string, description: string) {
-    mockedMovies.push({
-      title: value,
-      description: description,
-      image: tmp_img,
-    });
-  }
 
   const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTextFieldValue(event.target.value);
   };
+
+  useEffect(() => {
+    if (!isLoadingDescription) {
+      fetchMovieArtwork(textFieldValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadingDescription]);
+
+  useEffect(() => {
+    if (!isLoadingArtwork) {
+      addMovieToList(textFieldValue, description, url);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadingArtwork]);
+
+  function addMovieToList(value: string, description: string, url: string) {
+    mockedMovies.push({
+      title: value,
+      description: description,
+      image: url,
+    });
+    setIsLoadingData(false);
+    setShowAlert(true);
+  }
 
   return (
     <Box
@@ -81,9 +69,9 @@ export const HomePage = () => {
       <Typography
         variant="h1"
         color="var(--text-primary)"
-        style={{ fontWeight: "bold", paddingTop: "4rem" }}
+        style={{ fontWeight: "bold", paddingTop: "2.5%" }}
       >
-        FILMY.
+        MOVIES.
       </Typography>
       <ItemScrollableList movies={mockedMovies} />
       <Divider style={{ width: "100%" }} />
@@ -101,14 +89,18 @@ export const HomePage = () => {
           value={textFieldValue}
           onChange={handleTextFieldChange}
         />
-        <Button
-          variant="contained"
-          disableElevation
-          style={{ width: "50%" }}
-          onClick={fetchData}
-        >
-          Dodaj
-        </Button>
+        {isLoadingData ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            variant="contained"
+            disableElevation
+            style={{ width: "50%" }}
+            onClick={handleAddButtonClick}
+          >
+            ADD
+          </Button>
+        )}
       </Box>
       <Snackbar
         open={showAlert}

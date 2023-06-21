@@ -52,6 +52,7 @@ export const HomePage = () => {
       description: description,
       image: url,
     });
+    setTextFieldValue("");
     setIsLoadingData(false);
     setShowAlert(true);
   }
@@ -88,6 +89,7 @@ export const HomePage = () => {
           style={{ width: "20rem" }}
           value={textFieldValue}
           onChange={handleTextFieldChange}
+          disabled={isLoadingData}
         />
         {isLoadingData ? (
           <CircularProgress />

@@ -10,12 +10,7 @@ import {
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
-
-interface MovieItem {
-  title: string;
-  description: string;
-  image: string;
-}
+import { MovieItem } from "../../../components/api/openAi/types";
 
 interface ItemScrollableListProps {
   movies: MovieItem[];
@@ -60,16 +55,14 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           key={index}
           sx={{
             width: "14rem",
-            height: "24rem",
             backgroundColor: "var(--primary)",
           }}
         >
           <CardMedia
             component="img"
-            height="200"
-            width="200"
+            height="220"
             image={item.image}
-            alt="green iguana"
+            alt="movie artwork"
           />
           <CardContent>
             <Typography
@@ -78,6 +71,7 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
               component="div"
               color="var(--text-primary)"
               textAlign="start"
+              textOverflow="clip"
             >
               {item.title}
             </Typography>
@@ -102,7 +96,7 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
                 },
               }}
             >
-              Obejrzane
+              Mark as seen
             </Button>
           </CardActions>
         </Card>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { apiKey } from "../../../private/api_data";
 
 export const useFetchMovieDescription = () => {
-  const [isLoadingDescription, setIsLoadingDescription] = useState(true);
+  const [isLoadingDescription, setIsLoadingDescription] = useState(false);
   const [description, setDescription] = useState("");
 
   const fetchMovieDescription = (title: string) => {

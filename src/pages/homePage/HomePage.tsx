@@ -13,16 +13,26 @@ import { mockedMovies } from "./data/mockData";
 import { ItemScrollableList } from "./components/ItemScrollableList";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useFetchMovieDetails } from "../../components/api/openAi/useFetchMovieDetails";
+import { useFetchMovieDescription } from "../../components/api/openAi/useFetchMovieDescription";
 
 export const HomePage = () => {
   const [textFieldValue, setTextFieldValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const { isLoadingDescription, description, fetchMovieDescription } =
+    useFetchMovieDescription();
   const { isLoadingData, movieDetails, fetchMovieDetails } =
     useFetchMovieDetails();
 
   const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTextFieldValue(event.target.value);
   };
+
+  useEffect(() => {
+    if (!isLoadingDescription && description !== "") {
+      fetchMovieDetails(textFieldValue, description);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadingDescription]);
 
   useEffect(() => {
     if (!isLoadingData && movieDetails != null) {
@@ -65,9 +75,9 @@ export const HomePage = () => {
           style={{ width: "20rem" }}
           value={textFieldValue}
           onChange={handleTextFieldChange}
-          disabled={isLoadingData}
+          disabled={isLoadingData || isLoadingDescription}
         />
-        {isLoadingData ? (
+        {isLoadingData || isLoadingDescription ? (
           <CircularProgress />
         ) : (
           <Button
@@ -75,7 +85,7 @@ export const HomePage = () => {
             disableElevation
             style={{ width: "50%" }}
             onClick={() => {
-              fetchMovieDetails(textFieldValue);
+              fetchMovieDescription(textFieldValue);
             }}
           >
             ADD

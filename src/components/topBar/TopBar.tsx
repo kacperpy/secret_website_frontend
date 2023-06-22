@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import Person2Icon from "@mui/icons-material/Person2";
+import { Link } from "react-router-dom";
 
 export const TopBar = () => {
   let user = "Kacper";
@@ -36,6 +37,18 @@ export const TopBar = () => {
           {user}
         </Typography>
       </Box>
+      <Typography
+        component={Link}
+        to="/"
+        sx={{
+          fontSize: "1.5rem",
+          color: "var(--text-primary)",
+          fontWeight: "bold",
+          textDecoration: "none",
+        }}
+      >
+        moviemovie.com
+      </Typography>
       <Box display="flex" sx={{ marginRight: "3rem" }}>
         <MenuIcon
           sx={{

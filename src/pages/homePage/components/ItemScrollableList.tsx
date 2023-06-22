@@ -55,6 +55,7 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           key={index}
           sx={{
             width: "14rem",
+            height: "25.5rem",
             backgroundColor: "var(--primary)",
           }}
         >
@@ -71,7 +72,9 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
               component="div"
               color="var(--text-primary)"
               textAlign="start"
-              textOverflow="clip"
+              textOverflow="ellipsis"
+              overflow="hidden"
+              whiteSpace="nowrap"
             >
               {item.title}
             </Typography>

@@ -7,9 +7,9 @@ export const useFetchMovieDetails = () => {
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [movieDetails, setMovieDetails] = useState<MovieItem | null>(null);
 
-  const fetchMovieDetails = (movieTitle: string) => {
+  const fetchMovieDetails = (movieTitle: string, movieDescription: string) => {
     setIsLoadingData(true);
-    console.log("\nFETCHING ALL MOVIE DETAILS...\n");
+    console.log("\nFETCHING MOVIE DETAILS...\n");
     axios
       .all([
         axios.post(
@@ -19,25 +19,7 @@ export const useFetchMovieDetails = () => {
             messages: [
               {
                 role: "user",
-                content: `tell me a max 20 word description of the movie: ${movieTitle}`,
-              },
-            ],
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${apiKey}`,
-            },
-          }
-        ),
-        axios.post(
-          "https://api.openai.com/v1/chat/completions",
-          {
-            model: "gpt-3.5-turbo",
-            messages: [
-              {
-                role: "user",
-                content: `For the movie titled: ${movieTitle}, provide a max 200 word, detailed description of the storyline.`,
+                content: `Provided a movie title: ${movieTitle} and a short description: ${movieDescription}, create a max 200 word, detailed description of the storyline of that movie.`,
               },
             ],
           },
@@ -64,18 +46,18 @@ export const useFetchMovieDetails = () => {
         ),
       ])
       .then(
-        axios.spread((response1, response2, response3) => {
-          const responseShortDescription =
-            response1.data.choices[0]?.message?.content;
+        axios.spread((response1, response2) => {
           const responseLongDescription =
-            response2.data.choices[0]?.message?.content;
-          const responseArtworkUrl = response3.data.data[0]?.url;
+            response1.data.choices[0]?.message?.content;
+          const responseArtworkUrl = response2.data.data[0]?.url;
 
           setMovieDetails({
             title: movieTitle,
-            description: responseShortDescription,
+            description: movieDescription,
+            descriptionLong: responseLongDescription,
             image: responseArtworkUrl,
           });
+          console.log("\nMOVIE DETAILS FETCHED\n");
         })
       )
       .catch((error: any) => {

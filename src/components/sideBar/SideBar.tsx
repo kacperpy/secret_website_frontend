@@ -38,7 +38,11 @@ const SideBar = ({ open, onClose }: SideBarProps) => {
         sx={{ backgroundColor: "var(--primary)" }}
         gap="2rem"
       >
-        <Button variant="outlined" onClick={handleLogout}>
+        <Button
+          variant="outlined"
+          onClick={handleLogout}
+          disabled={localStorage.getItem("authed_user") === null}
+        >
           log out
         </Button>
       </Box>

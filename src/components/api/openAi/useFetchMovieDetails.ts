@@ -54,7 +54,7 @@ export const useFetchMovieDetails = () => {
           setMovieDetails({
             title: movieTitle,
             description: movieDescription,
-            descriptionLong: responseLongDescription,
+            description_long: responseLongDescription,
             image: responseArtworkUrl,
           });
           console.log("\nMOVIE DETAILS FETCHED\n");

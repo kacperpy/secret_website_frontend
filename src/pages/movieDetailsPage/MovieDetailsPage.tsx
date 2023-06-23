@@ -74,7 +74,7 @@ export const MovieDetailsPage = () => {
       >
         <Typography variant="body1" style={{ maxWidth: "50rem" }}>
           {tmpMovie !== undefined
-            ? tmpMovie.descriptionLong
+            ? tmpMovie.description_long
             : "tmp description long"}
         </Typography>
       </Box>

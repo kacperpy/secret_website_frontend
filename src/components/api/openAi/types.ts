@@ -1,6 +1,6 @@
 export interface MovieItem {
   title: string;
   description: string;
-  descriptionLong: string;
+  description_long: string;
   image: string;
 }

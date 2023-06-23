@@ -37,6 +37,7 @@ export const HomePage = () => {
   useEffect(() => {
     if (!isLoadingData && movieDetails != null) {
       mockedMovies.push(movieDetails);
+      localStorage.setItem("tmpMovie", JSON.stringify(movieDetails));
       setShowAlert(true);
       setTextFieldValue("");
     }

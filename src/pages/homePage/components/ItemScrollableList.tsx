@@ -11,6 +11,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
 import { MovieItem } from "../../../components/api/openAi/types";
+import { Link } from "react-router-dom";
 
 interface ItemScrollableListProps {
   movies: MovieItem[];
@@ -66,18 +67,24 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
             alt="movie artwork"
           />
           <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              color="var(--text-primary)"
-              textAlign="start"
-              textOverflow="ellipsis"
-              overflow="hidden"
-              whiteSpace="nowrap"
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/${item.title.replace(" ", "-")}/details`}
             >
-              {item.title}
-            </Typography>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                color="var(--text-primary)"
+                textAlign="start"
+                textOverflow="ellipsis"
+                overflow="hidden"
+                whiteSpace="nowrap"
+                sx={{ textDecoration: "none" }}
+              >
+                {item.title}
+              </Typography>
+            </Link>
             <Typography
               variant="body2"
               color="var(--text-primary)"

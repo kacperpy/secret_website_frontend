@@ -1,11 +1,23 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
-import { MovieItem } from "../../components/api/openAi/types";
 import mockImg from "../homePage/data/1.jpg";
 import AddIcon from "@mui/icons-material/Add";
 import { useParams } from "react-router-dom";
+import { mockedMovies } from "../homePage/data/mockData";
+import { useEffect, useState } from "react";
+import { MovieItem } from "../../components/api/openAi/types";
 
 export const MovieDetailsPage = () => {
   const { uuid } = useParams();
+  const [tmpMovie, setTmpMovie] = useState<MovieItem | undefined>(undefined);
+
+  useEffect(() => {
+    if (uuid !== undefined) {
+      const tmpMovieTitle = uuid.replace(/-/g, " ");
+      console.log(tmpMovieTitle);
+      setTmpMovie(JSON.parse(localStorage.getItem("tmpMovie") || "{}"));
+    }
+  }, [uuid]);
+
   return (
     <Box
       display="flex"
@@ -23,7 +35,7 @@ export const MovieDetailsPage = () => {
         gap="2rem"
       >
         <img
-          src={mockImg}
+          src={tmpMovie !== undefined ? tmpMovie.image : mockImg}
           style={{ width: "30rem", height: "30rem" }}
           alt="mock"
         />
@@ -35,7 +47,7 @@ export const MovieDetailsPage = () => {
           gap="1rem"
         >
           <Typography variant="h3" style={{ maxWidth: "30rem" }}>
-            {uuid}
+            {tmpMovie !== undefined ? tmpMovie.title : "tmp title"}
           </Typography>
           <Box
             display="flex"
@@ -61,24 +73,9 @@ export const MovieDetailsPage = () => {
         gap="2rem"
       >
         <Typography variant="body1" style={{ maxWidth: "50rem" }}>
-          a group of chipmunks living in a park are constantly harassed and
-          mistreated by inconsiderate humans. Despite their best efforts to
-          avoid conflict, they are driven to their breaking point and begin to
-          seek revenge.\n\nInitially, their efforts are comical, as they steal
-          picnic baskets and knock over trash cans. But as their anger continues
-          to grow, their actions become more destructive, causing chaos and
-          damage throughout the park.\n\nAs the humans begin to take notice of
-          the chipmunks' behavior, they realize that they have underestimated
-          the intelligence and determination of these small creatures. A group
-          of park rangers and animal control officers set out to catch the
-          chipmunks, but their efforts are thwarted at every turn, as the
-          chipmunks work together to outsmart their human adversaries.\n\nIn the
-          end, the humans come to understand the importance of respecting all
-          forms of life, no matter how small. The chipmunks, having exacted
-          their revenge, are able to live in peace and harmony with the humans
-          around them. \"Angry Chipmunks\" is a fun-filled adventure that will
-          entertain audiences of all ages, reminding us all of the importance of
-          kindness and respect for all living creatures.
+          {tmpMovie !== undefined
+            ? tmpMovie.descriptionLong
+            : "tmp description long"}
         </Typography>
       </Box>
     </Box>

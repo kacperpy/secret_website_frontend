@@ -3,9 +3,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import Person2Icon from "@mui/icons-material/Person2";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export const TopBar = () => {
-  let user = "Kacper";
+  const [user, setUser] = useState<string | null>(
+    localStorage.getItem("authed_user") || null
+  );
+
+  window.addEventListener("storage", () => {
+    const updatedUser = localStorage.getItem("authed_user") || null;
+    setUser(updatedUser);
+  });
+
   return (
     <Box
       display="flex"
@@ -16,27 +25,47 @@ export const TopBar = () => {
       width="100%"
       height="8rem"
     >
-      <Box display="flex" sx={{ marginLeft: "3rem" }}>
-        {user === "Kacper" ? (
-          <PersonIcon sx={{ fontSize: "3rem", color: "var(--text-primary)" }} />
-        ) : (
-          <Box display="flex">
+      {user === null ? (
+        <Box display="flex" sx={{ marginLeft: "3rem" }}>
+          <Typography
+            component={Link}
+            to={"/login"}
+            sx={{
+              fontSize: "2rem",
+              color: "var(--text-primary)",
+              fontWeight: "bold",
+              textDecoration: "none",
+              "&:hover": {
+                color: "var(--text-primary-hover)",
+              },
+            }}
+          >
+            log in
+          </Typography>
+        </Box>
+      ) : (
+        <Box display="flex" sx={{ marginLeft: "3rem" }}>
+          {user === "julcia" ? (
             <Person2Icon
               sx={{ fontSize: "3rem", color: "var(--text-primary)" }}
             />
-          </Box>
-        )}
-        <Typography
-          sx={{
-            fontSize: "2rem",
-            color: "var(--text-primary)",
-            fontWeight: "bold",
-            marginLeft: "1rem",
-          }}
-        >
-          {user}
-        </Typography>
-      </Box>
+          ) : (
+            <PersonIcon
+              sx={{ fontSize: "3rem", color: "var(--text-primary)" }}
+            />
+          )}
+          <Typography
+            sx={{
+              fontSize: "2rem",
+              color: "var(--text-primary)",
+              fontWeight: "bold",
+              marginLeft: "1rem",
+            }}
+          >
+            {user}
+          </Typography>
+        </Box>
+      )}
       <Typography
         component={Link}
         to="/"

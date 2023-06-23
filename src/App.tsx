@@ -6,6 +6,7 @@ import { ThemeProvider } from "@emotion/react";
 import { HomePage } from "./pages/homePage/HomePage";
 import { TopBar } from "./components/topBar/TopBar";
 import { MovieDetailsPage } from "./pages/movieDetailsPage/MovieDetailsPage";
+import { LoginPage } from "./pages/loginPage/LoginPage";
 
 function App() {
   const theme = createCustomTheme();
@@ -15,6 +16,7 @@ function App() {
         <TopBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/:uuid/details" element={<MovieDetailsPage />} />
         </Routes>
       </div>

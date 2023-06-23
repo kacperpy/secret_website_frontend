@@ -9,11 +9,12 @@ import {
   Typography,
 } from "@mui/material";
 import styles from "./HomePage.module.css";
-import { mockedMovies } from "./data/mockData";
 import { ItemScrollableList } from "./components/ItemScrollableList";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useFetchMovieDetails } from "../../components/api/openAi/useFetchMovieDetails";
 import { useFetchMovieDescription } from "../../components/api/openAi/useFetchMovieDescription";
+import { useFetchMovies } from "../../components/api/movieList/useFetchMovies";
+import { useCreateMovie } from "../../components/api/movieList/useCreateMovie";
 
 export const HomePage = () => {
   const [textFieldValue, setTextFieldValue] = useState("");
@@ -22,6 +23,8 @@ export const HomePage = () => {
     useFetchMovieDescription();
   const { isLoadingData, movieDetails, fetchMovieDetails } =
     useFetchMovieDetails();
+  const { isLoadingMovies, movies } = useFetchMovies();
+  const { createMovie, isCreatingMovie, createdMovie } = useCreateMovie();
 
   const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTextFieldValue(event.target.value);
@@ -36,13 +39,19 @@ export const HomePage = () => {
 
   useEffect(() => {
     if (!isLoadingData && movieDetails != null) {
-      mockedMovies.push(movieDetails);
-      localStorage.setItem("tmpMovie", JSON.stringify(movieDetails));
+      createMovie(movieDetails);
       setShowAlert(true);
       setTextFieldValue("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingData]);
+
+  useEffect(() => {
+    if (!isCreatingMovie && createdMovie != null) {
+      movies.push(createdMovie);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreatingMovie]);
 
   return (
     <Box
@@ -61,7 +70,11 @@ export const HomePage = () => {
       >
         MOVIES.
       </Typography>
-      <ItemScrollableList movies={mockedMovies} />
+      {isLoadingMovies ? (
+        <CircularProgress />
+      ) : (
+        <ItemScrollableList movies={movies} />
+      )}
       <Divider style={{ width: "100%" }} />
       <Box
         display="flex"

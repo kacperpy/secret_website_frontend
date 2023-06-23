@@ -52,10 +52,12 @@ export const useFetchMovieDetails = () => {
           const responseArtworkUrl = response2.data.data[0]?.url;
 
           setMovieDetails({
+            uuid: "",
             title: movieTitle,
             description: movieDescription,
             description_long: responseLongDescription,
             image: responseArtworkUrl,
+            created_at: "",
           });
           console.log("\nMOVIE DETAILS FETCHED\n");
         })

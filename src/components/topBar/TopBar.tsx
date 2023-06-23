@@ -26,6 +26,8 @@ export const TopBar = () => {
       top="0"
       width="100%"
       height="8rem"
+      zIndex="10"
+      sx={{ backgroundColor: "var(--primary)" }}
     >
       <SideBar open={open} onClose={() => setOpen(false)} />
       <Box display="flex" sx={{ marginLeft: "3rem" }}>

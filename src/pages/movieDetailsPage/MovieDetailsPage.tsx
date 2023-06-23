@@ -1,20 +1,25 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  Typography,
+} from "@mui/material";
 import mockImg from "../homePage/data/1.jpg";
 import AddIcon from "@mui/icons-material/Add";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { MovieItem } from "../../components/api/openAi/types";
+import { useEffect } from "react";
+import { useFetchMovie } from "../../components/api/movieList/useFetchMovie";
 
 export const MovieDetailsPage = () => {
   const { uuid } = useParams();
-  const [tmpMovie, setTmpMovie] = useState<MovieItem | undefined>(undefined);
+  const { isLoadingMovie, movie, fetchMovie } = useFetchMovie();
 
   useEffect(() => {
     if (uuid !== undefined) {
-      const tmpMovieTitle = uuid.replace(/-/g, " ");
-      console.log(tmpMovieTitle);
-      setTmpMovie(JSON.parse(localStorage.getItem("tmpMovie") || "{}"));
+      fetchMovie(uuid);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uuid]);
 
   return (
@@ -34,11 +39,15 @@ export const MovieDetailsPage = () => {
         justifyContent="center"
         gap="2rem"
       >
-        <img
-          src={tmpMovie !== undefined ? tmpMovie.image : mockImg}
-          style={{ width: "30rem", height: "30rem" }}
-          alt="mock"
-        />
+        {isLoadingMovie ? (
+          <CircularProgress />
+        ) : (
+          <img
+            src={movie?.image || mockImg}
+            style={{ width: "30rem", height: "30rem" }}
+            alt="movie artwork"
+          />
+        )}
         <Box
           display="flex"
           flexDirection="column"
@@ -47,7 +56,7 @@ export const MovieDetailsPage = () => {
           gap="1rem"
         >
           <Typography variant="h3" style={{ maxWidth: "30rem" }}>
-            {tmpMovie !== undefined ? tmpMovie.title : "tmp title"}
+            {movie?.title || "???"}
           </Typography>
           <Box
             display="flex"
@@ -73,9 +82,7 @@ export const MovieDetailsPage = () => {
         gap="2rem"
       >
         <Typography variant="body1" style={{ maxWidth: "50rem" }}>
-          {tmpMovie !== undefined
-            ? tmpMovie.description_long
-            : "tmp description long"}
+          {movie?.description_long || "???"}
         </Typography>
       </Box>
     </Box>

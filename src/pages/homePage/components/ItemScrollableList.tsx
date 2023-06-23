@@ -69,7 +69,7 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           <CardContent>
             <Link
               style={{ textDecoration: "none" }}
-              to={`/${item.title.replace(" ", "-")}/details`}
+              to={`/${item.uuid}/details`}
             >
               <Typography
                 gutterBottom

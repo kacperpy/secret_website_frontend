@@ -4,8 +4,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import Person2Icon from "@mui/icons-material/Person2";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import SideBar from "../sideBar/SideBar";
 
 export const TopBar = () => {
+  const [open, setOpen] = useState(false);
   const [user, setUser] = useState<string | null>(
     localStorage.getItem("authed_user") || null
   );
@@ -25,15 +27,41 @@ export const TopBar = () => {
       width="100%"
       height="8rem"
     >
+      <SideBar open={open} onClose={() => setOpen(false)} />
+      <Box display="flex" sx={{ marginLeft: "3rem" }}>
+        <MenuIcon
+          onClick={() => setOpen(true)}
+          sx={{
+            fontSize: "3rem",
+            color: "var(--text-primary)",
+            cursor: "pointer",
+            transition: "color 0.1s ease",
+            "&:hover": {
+              color: "var(--text-primary-hover)",
+            },
+          }}
+        />
+      </Box>
+      <Typography
+        component={Link}
+        to="/"
+        sx={{
+          fontSize: "1.5rem",
+          color: "var(--text-primary)",
+          fontWeight: "bold",
+          textDecoration: "none",
+        }}
+      >
+        moviemovie.com
+      </Typography>
       {user === null ? (
-        <Box display="flex" sx={{ marginLeft: "3rem" }}>
+        <Box display="flex" sx={{ marginRight: "3rem" }}>
           <Typography
             component={Link}
             to={"/login"}
             sx={{
               fontSize: "2rem",
               color: "var(--text-primary)",
-              fontWeight: "bold",
               textDecoration: "none",
               "&:hover": {
                 color: "var(--text-primary-hover)",
@@ -44,7 +72,7 @@ export const TopBar = () => {
           </Typography>
         </Box>
       ) : (
-        <Box display="flex" sx={{ marginLeft: "3rem" }}>
+        <Box display="flex" sx={{ marginRight: "3rem" }}>
           {user === "julcia" ? (
             <Person2Icon
               sx={{ fontSize: "3rem", color: "var(--text-primary)" }}
@@ -66,31 +94,6 @@ export const TopBar = () => {
           </Typography>
         </Box>
       )}
-      <Typography
-        component={Link}
-        to="/"
-        sx={{
-          fontSize: "1.5rem",
-          color: "var(--text-primary)",
-          fontWeight: "bold",
-          textDecoration: "none",
-        }}
-      >
-        moviemovie.com
-      </Typography>
-      <Box display="flex" sx={{ marginRight: "3rem" }}>
-        <MenuIcon
-          sx={{
-            fontSize: "3rem",
-            color: "var(--text-primary)",
-            cursor: "pointer",
-            transition: "color 0.1s ease",
-            "&:hover": {
-              color: "var(--text-primary-hover)",
-            },
-          }}
-        />
-      </Box>
     </Box>
   );
 };

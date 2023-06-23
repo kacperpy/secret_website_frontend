@@ -25,6 +25,7 @@ export const MovieDetailsPage = () => {
       justifyContent="center"
       gap="2rem"
       paddingTop="5rem"
+      paddingBottom="5rem"
     >
       <Box
         display="flex"

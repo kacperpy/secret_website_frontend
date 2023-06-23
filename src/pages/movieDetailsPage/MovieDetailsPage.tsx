@@ -2,7 +2,6 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import mockImg from "../homePage/data/1.jpg";
 import AddIcon from "@mui/icons-material/Add";
 import { useParams } from "react-router-dom";
-import { mockedMovies } from "../homePage/data/mockData";
 import { useEffect, useState } from "react";
 import { MovieItem } from "../../components/api/openAi/types";
 

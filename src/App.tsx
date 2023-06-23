@@ -6,7 +6,6 @@ import { ThemeProvider } from "@emotion/react";
 import { HomePage } from "./pages/homePage/HomePage";
 import { TopBar } from "./components/topBar/TopBar";
 import { MovieDetailsPage } from "./pages/movieDetailsPage/MovieDetailsPage";
-import { mockedMovies } from "./pages/homePage/data/mockData";
 
 function App() {
   const theme = createCustomTheme();

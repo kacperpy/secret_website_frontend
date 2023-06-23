@@ -43,7 +43,7 @@ export const MovieDetailsPage = () => {
           <CircularProgress />
         ) : (
           <img
-            src={movie?.image || mockImg}
+            src={movie?.image_file || mockImg}
             style={{ width: "30rem", height: "30rem" }}
             alt="movie artwork"
           />

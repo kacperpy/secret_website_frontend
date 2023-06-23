@@ -63,7 +63,7 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
           <CardMedia
             component="img"
             height="220"
-            image={item.image}
+            image={item.image_file}
             alt="movie artwork"
           />
           <CardContent>

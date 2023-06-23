@@ -56,7 +56,8 @@ export const useFetchMovieDetails = () => {
             title: movieTitle,
             description: movieDescription,
             description_long: responseLongDescription,
-            image: responseArtworkUrl,
+            image_url: responseArtworkUrl,
+            image_file: "",
             created_at: "",
           });
           console.log("\nMOVIE DETAILS FETCHED\n");

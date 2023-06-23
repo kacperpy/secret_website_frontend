@@ -3,6 +3,7 @@ export interface MovieItem {
   title: string;
   description: string;
   description_long: string;
-  image: string;
+  image_url: string;
+  image_file: string;
   created_at: string;
 }

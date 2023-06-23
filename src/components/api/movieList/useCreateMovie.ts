@@ -16,7 +16,7 @@ export const useCreateMovie = () => {
           title: movie.title,
           description: movie.description,
           description_long: movie.description_long,
-          image: movie.image,
+          image_url: movie.image_url,
         },
         {
           headers: {

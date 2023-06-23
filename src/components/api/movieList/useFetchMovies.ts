@@ -10,7 +10,8 @@ export const useFetchMovies = () => {
       title: "",
       description: "",
       description_long: "",
-      image: "",
+      image_url: "",
+      image_file: "",
       created_at: "",
     },
   ]);

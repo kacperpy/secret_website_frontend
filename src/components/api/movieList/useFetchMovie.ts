@@ -8,7 +8,7 @@ export const useFetchMovie = () => {
 
   const fetchMovie = (uuid: string) => {
     setIsLoadingMovie(true);
-    console.log("\nFETCHING MOVIES...\n");
+    console.log("\nFETCHING MOVIE...\n");
     axios
       .get(`http://127.0.0.1:8000/api/movies/${uuid}/`, {
         headers: {
@@ -22,7 +22,7 @@ export const useFetchMovie = () => {
         setMovie(movie);
       })
       .catch((error: any) => {
-        console.error("Error fetching movie details:", error);
+        console.error("Error fetching movie:", error);
       })
       .finally(() => {
         setIsLoadingMovie(false);

@@ -1,10 +1,11 @@
 import {
   Box,
-  Button,
+  // Button,
   Card,
-  CardActions,
+  // CardActions,
   CardContent,
   CardMedia,
+  Divider,
   Typography,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -91,17 +92,18 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
                 {item.title}
               </Typography>
             </Link>
+            <Divider style={{ width: "90%", marginBottom: "0.7rem" }} />
             <Typography
               variant="body2"
               color="var(--text-primary)"
               textAlign="start"
-              height={60}
+              height={100}
               overflow="auto"
             >
               {item.description}
             </Typography>
           </CardContent>
-          <CardActions>
+          {/* <CardActions>
             <Button
               variant="contained"
               sx={{
@@ -114,7 +116,7 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
             >
               Mark as seen
             </Button>
-          </CardActions>
+          </CardActions> */}
         </Card>
       ))}
       {/* {startIndex + MAX_CARDS < movies.length && (

@@ -77,7 +77,7 @@ export const HomePage = () => {
             color="var(--text-primary)"
             style={{ fontWeight: "bold", paddingTop: "2.5%" }}
           >
-            MOVIES.
+            WATCHLIST.
           </Typography>
           {isLoadingMovies ? (
             <CircularProgress />
@@ -93,7 +93,7 @@ export const HomePage = () => {
           >
             <TextField
               id="outlined-basic"
-              placeholder="Co tym razem?"
+              placeholder="What now?"
               variant="outlined"
               style={{ width: "20rem" }}
               value={textFieldValue}

@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import mockImg from "../homePage/data/1.jpg";
-import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useFetchMovie } from "../../components/api/movieList/useFetchMovie";
@@ -65,10 +65,10 @@ export const MovieDetailsPage = () => {
             gap="0.5rem"
             justifyContent="flex-start"
           >
-            <Button variant="outlined" startIcon={<AddIcon />}>
-              Add to watchlist
+            <Button variant="outlined" color="error" startIcon={<RemoveIcon />}>
+              remove from watchlist
             </Button>
-            <Button variant="outlined">Recommend similar</Button>
+            <Button variant="outlined">recommend similar</Button>
           </Box>
         </Box>
       </Box>

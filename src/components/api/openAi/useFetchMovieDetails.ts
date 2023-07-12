@@ -59,6 +59,7 @@ export const useFetchMovieDetails = () => {
             image_url: responseArtworkUrl,
             image_file: "",
             created_at: "",
+            is_active: true,
           });
           console.log("\nMOVIE DETAILS FETCHED\n");
         })

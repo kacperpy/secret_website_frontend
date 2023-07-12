@@ -10,10 +10,19 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useFetchMovie } from "../../components/api/movieList/useFetchMovie";
+import { useRemovieMovieFromWatchlist } from "../../components/api/movieList/useRemoveMovieFromWatchlist";
 
 export const MovieDetailsPage = () => {
   const { uuid } = useParams();
   const { isLoadingMovie, movie, fetchMovie } = useFetchMovie();
+  const { isRemovingMovieFromWatchlist, removeMovieFromWatchlist } =
+    useRemovieMovieFromWatchlist();
+
+  const handleRemoveMovieFromWatchlist = () => {
+    if (movie !== null) {
+      removeMovieFromWatchlist(movie);
+    }
+  };
 
   useEffect(() => {
     if (uuid !== undefined) {
@@ -65,10 +74,22 @@ export const MovieDetailsPage = () => {
             gap="0.5rem"
             justifyContent="flex-start"
           >
-            <Button variant="outlined" color="error" startIcon={<RemoveIcon />}>
-              remove from watchlist
+            {isRemovingMovieFromWatchlist ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                variant="outlined"
+                color="error"
+                disabled={!movie?.is_active}
+                startIcon={<RemoveIcon />}
+                onClick={handleRemoveMovieFromWatchlist}
+              >
+                remove from watchlist
+              </Button>
+            )}
+            <Button variant="outlined" disabled>
+              recommend similar
             </Button>
-            <Button variant="outlined">recommend similar</Button>
           </Box>
         </Box>
       </Box>

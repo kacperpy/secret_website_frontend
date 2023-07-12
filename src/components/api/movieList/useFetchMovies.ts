@@ -14,6 +14,7 @@ export const useFetchMovies = () => {
       image_url: "",
       image_file: "",
       created_at: "",
+      is_active: false,
     },
   ]);
 
@@ -21,7 +22,7 @@ export const useFetchMovies = () => {
     setIsLoadingMovies(true);
     console.log("\nFETCHING MOVIES...\n");
     axios
-      .get(`http://${MOVIE_API_ADRESS}/api/movies/`, {
+      .get(`http://${MOVIE_API_ADRESS}/api/user-active-movies/`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${localStorage.getItem("user_auth_token")}`,

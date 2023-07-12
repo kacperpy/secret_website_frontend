@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
-import Person2Icon from "@mui/icons-material/Person2";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SideBar from "../sideBar/SideBar";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const TopBar = () => {
   const [open, setOpen] = useState(false);
@@ -76,7 +76,7 @@ export const TopBar = () => {
       ) : (
         <Box display="flex" sx={{ marginRight: "3rem" }}>
           {user === "julcia" ? (
-            <Person2Icon
+            <FavoriteIcon
               sx={{ fontSize: "3rem", color: "var(--text-primary)" }}
             />
           ) : (

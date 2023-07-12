@@ -29,7 +29,6 @@ export const MovieDetailsPage = () => {
       alignItems="center"
       justifyContent="center"
       gap="2rem"
-      paddingTop="5rem"
       paddingBottom="5rem"
     >
       <Box

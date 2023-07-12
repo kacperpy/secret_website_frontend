@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { MovieItem } from "../openAi/types";
+import { MOVIE_API_ADRESS } from "../api";
 
 export const useCreateMovie = () => {
   const [isCreatingMovie, setIsCreatingMovie] = useState(false);
@@ -11,7 +12,7 @@ export const useCreateMovie = () => {
     console.log("CREATING MOVIE...\n");
     axios
       .post(
-        "http://127.0.0.1:8000/api/movies/",
+        `http://${MOVIE_API_ADRESS}/api/movies/`,
         {
           title: movie.title,
           description: movie.description,

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MovieItem } from "../openAi/types";
+import { MOVIE_API_ADRESS } from "../api";
 
 export const useFetchMovies = () => {
   const [isLoadingMovies, setIsLoadingMovies] = useState(false);
@@ -20,7 +21,7 @@ export const useFetchMovies = () => {
     setIsLoadingMovies(true);
     console.log("\nFETCHING MOVIES...\n");
     axios
-      .get("http://127.0.0.1:8000/api/movies/", {
+      .get(`http://${MOVIE_API_ADRESS}/api/movies/`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${localStorage.getItem("user_auth_token")}`,

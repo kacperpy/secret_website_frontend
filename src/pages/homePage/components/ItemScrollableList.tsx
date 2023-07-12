@@ -51,13 +51,11 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
   const visibleMovies = movies.slice(startIndex, startIndex + MAX_CARDS);
   return (
     <Box display="flex" flexDirection="row" gap="2rem" alignItems="center">
-      {/* {startIndex > 0 && (
-        
-      )} */}
-      <ArrowBackIosIcon
-        onClick={handleScrollLeft}
-        sx={startIndex > 0 ? arrowSxActive : arrowSxInactive}
-      />
+      {startIndex > 0 ? (
+        <ArrowBackIosIcon onClick={handleScrollLeft} sx={arrowSxActive} />
+      ) : (
+        <ArrowBackIosIcon sx={arrowSxInactive} />
+      )}
       {visibleMovies.map((item, index) => (
         <Card
           key={index}
@@ -122,14 +120,11 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
       {/* {startIndex + MAX_CARDS < movies.length && (
         
       )} */}
-      <ArrowForwardIosIcon
-        onClick={handleScrollRight}
-        sx={
-          startIndex + MAX_CARDS < movies.length
-            ? arrowSxActive
-            : arrowSxInactive
-        }
-      />
+      {startIndex + MAX_CARDS < movies.length ? (
+        <ArrowForwardIosIcon onClick={handleScrollRight} sx={arrowSxActive} />
+      ) : (
+        <ArrowForwardIosIcon sx={arrowSxInactive} />
+      )}
     </Box>
   );
 };

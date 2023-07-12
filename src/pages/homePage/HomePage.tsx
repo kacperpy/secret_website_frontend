@@ -19,6 +19,7 @@ import { useCreateMovie } from "../../components/api/movieList/useCreateMovie";
 export const HomePage = () => {
   const [textFieldValue, setTextFieldValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { isLoadingDescription, description, fetchMovieDescription } =
     useFetchMovieDescription();
   const { isLoadingData, movieDetails, fetchMovieDetails } =
@@ -38,6 +39,11 @@ export const HomePage = () => {
     setTextFieldValue(event.target.value);
   };
 
+  const handleMovieAdd = () => {
+    setIsLoading(true);
+    fetchMovieDescription(textFieldValue);
+  };
+
   useEffect(() => {
     if (!isLoadingDescription && description !== "") {
       fetchMovieDetails(textFieldValue, description);
@@ -48,7 +54,6 @@ export const HomePage = () => {
   useEffect(() => {
     if (!isLoadingData && movieDetails != null) {
       createMovie(movieDetails);
-      setShowAlert(true);
       setTextFieldValue("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,6 +62,8 @@ export const HomePage = () => {
   useEffect(() => {
     if (!isCreatingMovie && createdMovie != null) {
       movies.push(createdMovie);
+      setIsLoading(false);
+      setShowAlert(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCreatingMovie]);
@@ -98,18 +105,16 @@ export const HomePage = () => {
               style={{ width: "20rem" }}
               value={textFieldValue}
               onChange={handleTextFieldChange}
-              disabled={isLoadingData || isLoadingDescription}
+              disabled={isLoading}
             />
-            {isLoadingData || isLoadingDescription ? (
+            {isLoading ? (
               <CircularProgress />
             ) : (
               <Button
                 variant="contained"
                 disableElevation
                 style={{ width: "50%" }}
-                onClick={() => {
-                  fetchMovieDescription(textFieldValue);
-                }}
+                onClick={handleMovieAdd}
               >
                 ADD
               </Button>

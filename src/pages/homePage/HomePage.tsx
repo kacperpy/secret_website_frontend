@@ -73,9 +73,9 @@ export const HomePage = () => {
         <Typography
           variant="h1"
           color="var(--text-primary)"
-          style={{ fontWeight: "bold", paddingTop: "2.5%" }}
+          sx={{ fontWeight: "bold" }}
         >
-          WATCHLIST.
+          WATCHLIST
         </Typography>
         {isLoadingMovies ? (
           <CircularProgress />

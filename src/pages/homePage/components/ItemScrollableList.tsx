@@ -1,18 +1,9 @@
-import {
-  Box,
-  // Button,
-  Card,
-  // CardActions,
-  CardContent,
-  CardMedia,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useState } from "react";
 import { MovieItem } from "../../../components/api/openAi/types";
-import { Link } from "react-router-dom";
+import { MovieCard } from "../../../components/movieCard/MovieCard";
 
 interface ItemScrollableListProps {
   movies: MovieItem[];
@@ -57,69 +48,8 @@ export const ItemScrollableList = ({ movies }: ItemScrollableListProps) => {
         <ArrowBackIosIcon sx={arrowSxInactive} />
       )}
       {visibleMovies.map((item, index) => (
-        <Card
-          key={index}
-          sx={{
-            width: "14rem",
-            height: "25.5rem",
-            backgroundColor: "var(--primary)",
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="220"
-            image={item.image_file}
-            alt="movie artwork"
-          />
-          <CardContent>
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/${item.uuid}/details`}
-            >
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                color="var(--text-primary)"
-                textAlign="start"
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap"
-                sx={{ textDecoration: "none" }}
-              >
-                {item.title}
-              </Typography>
-            </Link>
-            <Divider style={{ width: "90%", marginBottom: "0.7rem" }} />
-            <Typography
-              variant="body2"
-              color="var(--text-primary)"
-              textAlign="start"
-              height={100}
-              overflow="auto"
-            >
-              {item.description}
-            </Typography>
-          </CardContent>
-          {/* <CardActions>
-            <Button
-              variant="contained"
-              sx={{
-                width: "100%",
-                backgroundColor: "var(--details)",
-                "&:hover": {
-                  backgroundColor: "#d15c68",
-                },
-              }}
-            >
-              Mark as seen
-            </Button>
-          </CardActions> */}
-        </Card>
+        <MovieCard movie={item} index={index} />
       ))}
-      {/* {startIndex + MAX_CARDS < movies.length && (
-        
-      )} */}
       {startIndex + MAX_CARDS < movies.length ? (
         <ArrowForwardIosIcon onClick={handleScrollRight} sx={arrowSxActive} />
       ) : (

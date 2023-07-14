@@ -7,7 +7,8 @@ import { HomePage } from "./pages/homePage/HomePage";
 import { TopBar } from "./components/topBar/TopBar";
 import { MovieDetailsPage } from "./pages/movieDetailsPage/MovieDetailsPage";
 import { LoginPage } from "./pages/loginPage/LoginPage";
-import { Box, Typography } from "@mui/material";
+import { ConfidentialPage } from "./pages/confidentialPage/ConfidentialPage";
+import { MovieCatalogPage } from "./pages/movieCatalogPage/MovieCatalogPage";
 
 function App() {
   const [user, setUser] = useState<string | null>(
@@ -29,28 +30,13 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/:uuid/details" element={<MovieDetailsPage />} />
+            <Route path="/movie-catalog" element={<MovieCatalogPage />} />
           </Routes>
         ) : (
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignContent="center"
-            alignItems="center"
-            height="70vh"
-          >
-            <Typography
-              variant="h1"
-              color="var(--text-primary)"
-              sx={{
-                fontWeight: "bold",
-                paddingTop: "2.5%",
-                textAlign: "center",
-              }}
-            >
-              💀CONFIDENTIAL💀
-            </Typography>
-          </Box>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<ConfidentialPage />} />
+          </Routes>
         )}
       </div>
     </ThemeProvider>

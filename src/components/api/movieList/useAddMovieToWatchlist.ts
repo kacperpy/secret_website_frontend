@@ -23,7 +23,7 @@ export const useAddMovieToWatchlist = () => {
       )
       .then((response: { data: any }) => {
         console.log(`\n${response.data}\n`);
-        movie.is_active = false;
+        movie.is_active = true;
       })
       .catch((error: any) => {
         console.error("Error adding movie to watchlist:", error);

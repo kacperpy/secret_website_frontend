@@ -1,5 +1,7 @@
-import { Box, Button, Drawer } from "@mui/material";
+import { Box, Button, Divider, Drawer, Typography } from "@mui/material";
 import { MouseEvent, KeyboardEvent } from "react";
+import { routes } from "./data/sideBarContent";
+import { Link, useLocation } from "react-router-dom";
 
 interface SideBarProps {
   open: boolean;
@@ -7,6 +9,7 @@ interface SideBarProps {
 }
 
 const SideBar = ({ open, onClose }: SideBarProps) => {
+  const curLocation = useLocation();
   const toggleDrawer =
     (open: boolean) => (event: KeyboardEvent | MouseEvent) => {
       if (
@@ -38,6 +41,36 @@ const SideBar = ({ open, onClose }: SideBarProps) => {
         sx={{ backgroundColor: "var(--primary)" }}
         gap="2rem"
       >
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          gap="1rem"
+        >
+          {routes.map((item, index) => (
+            <Typography
+              key={index}
+              component={Link}
+              to={item.url}
+              sx={{
+                fontSize: "1.5rem",
+                color:
+                  curLocation.pathname === item.url
+                    ? "var(--text-primary-hover)"
+                    : "var(--text-primary)",
+                textDecoration: "none",
+                transition: "color 0.1s ease",
+                "&:hover": {
+                  color: "var(--text-primary-hover)",
+                },
+              }}
+            >
+              {item.name}
+            </Typography>
+          ))}
+        </Box>
+        <Divider sx={{ width: "80%" }}></Divider>
         <Button
           variant="outlined"
           onClick={handleLogout}

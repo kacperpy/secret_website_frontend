@@ -24,8 +24,7 @@ const SideBar = ({ open, onClose }: SideBarProps) => {
     };
 
   const handleLogout = () => {
-    localStorage.removeItem("authed_user");
-    localStorage.removeItem("user_auth_token");
+    localStorage.clear();
     window.dispatchEvent(new Event("storage"));
   };
 

@@ -8,7 +8,7 @@ export const ConfidentialPage = () => {
       justifyContent="center"
       alignContent="center"
       alignItems="center"
-      height="70vh"
+      height="100vh"
     >
       <Typography
         variant="h1"

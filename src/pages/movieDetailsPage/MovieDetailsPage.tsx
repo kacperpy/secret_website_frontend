@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useFetchMovie } from "../../components/api/movieList/useFetchMovie";
 import { useRemovieMovieFromWatchlist } from "../../components/api/movieList/useRemoveMovieFromWatchlist";
 import { useAddMovieToWatchlist } from "../../components/api/movieList/useAddMovieToWatchlist";
+import { CommentSection } from "../../components/commentSection/CommentSection";
 
 export const MovieDetailsPage = () => {
   const { uuid } = useParams();
@@ -125,6 +126,7 @@ export const MovieDetailsPage = () => {
           {movie?.description_long || "???"}
         </Typography>
       </Box>
+      <CommentSection />
     </Box>
   );
 };

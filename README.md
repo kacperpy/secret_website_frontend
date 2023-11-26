@@ -1,5 +1,5 @@
-Project made for fun - website used as a private list of movies to watch for couples or friends.
-User inputs the title of the movie, the other information (description, artwork) is genereted by AI (ChatGPT, DALL.E)
+# Project made for fun - website used as a private list of movies to watch for couples or friends.
+## User inputs the title of the movie, the other information (description, artwork) is genereted by AI (ChatGPT, DALL.E)
 
 
 # Getting Started with Create React App

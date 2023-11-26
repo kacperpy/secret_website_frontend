@@ -1,3 +1,7 @@
+Project made for fun - website used as a private list of movies to watch for couples or friends.
+User inputs the title of the movie, the other information (description, artwork) is genereted by AI (ChatGPT, DALL.E)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
